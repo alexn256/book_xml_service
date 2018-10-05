@@ -19,8 +19,11 @@ import java.time.LocalDate;
 import static org.junit.Assert.*;
 
 /**
+ * Test class for {@link CatalogXmlParser} class.
+ *
  * @author Alexander Naumov
  */
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -35,15 +38,13 @@ public class CatalogXmlParserTest {
     @Before
     public void setup() {
         book = new Book();
-        book.setId("bk103");
-        book.setAuthor("Corets, Eva");
-        book.setTitle("Maeve Ascendant");
-        book.setGenre("Fantasy");
-        book.setPrice(5.95);
+        book.setId("bk107");
+        book.setAuthor("God");
+        book.setTitle("Holly Bible");
+        book.setGenre("Drama");
+        book.setPrice(0.00);
         book.setPublishDate(LocalDate.of(2000, 11, 17));
-        book.setDescription("After the collapse of a nanotechnology " +
-                "society in England, the young survivors lay the foundation " +
-                "for a new society.");
+        book.setDescription("Everything will be good...");
     }
 
     @After
@@ -56,14 +57,15 @@ public class CatalogXmlParserTest {
         Catalog catalog = catalogXmlParser.getCatalogFromFile();
         assertNotNull(catalog);
         assertTrue(catalog.getBooks().size() > 0);
-        assertEquals(catalog.getBooks().size(), 2);
     }
 
     @Test
     public void saveCatalogToFile() throws JAXBException {
-        Catalog catalog = catalogXmlParser.getCatalogFromFile();
-        catalog.getBooks().add(book);
-        catalogXmlParser.saveCatalogToFile(catalog);
+        int size = catalogXmlParser.getCatalogFromFile().getBooks().size();
+        Catalog mainCatalog = catalogXmlParser.getCatalogFromFile();
+        mainCatalog.getBooks().add(book);
+        catalogXmlParser.saveCatalogToFile(mainCatalog);
+        assertTrue(size != catalogXmlParser.getCatalogFromFile().getBooks().size());
 
     }
 }

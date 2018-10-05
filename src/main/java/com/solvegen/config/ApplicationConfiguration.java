@@ -20,7 +20,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan("com.solvegen")
 public class ApplicationConfiguration {
 
-
     @Bean
     public BookService bookService() {
         return new BookService();

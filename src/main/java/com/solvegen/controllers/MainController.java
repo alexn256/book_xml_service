@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.bind.JAXBException;
+
 
 /**
  * Main controller class.
@@ -21,8 +23,11 @@ public class MainController {
     private BookService service;
 
     @RequestMapping(value = "/books", produces = "application/xml", consumes = "application/xml", method = RequestMethod.POST)
-    public @ResponseBody Catalog changeBook(@RequestBody Catalog catalog) throws Exception {
-       return service.getBooks();
+    public @ResponseBody Catalog changeBook(@RequestBody Catalog catalog) throws JAXBException {
+
+        // todo
+
+        return catalog;
     }
 
 }

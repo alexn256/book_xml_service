@@ -4,6 +4,7 @@ import com.solvegen.models.Book;
 import com.solvegen.models.Catalog;
 import com.solvegen.util.CatalogXmlParser;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.xml.bind.JAXBException;
 import java.util.List;
 
@@ -62,7 +63,11 @@ public class BookService {
 
     public void deleteBook(Book book) throws JAXBException {
         Catalog mainCatalog = parser.getCatalogFromFile();
-        mainCatalog.getBooks().removeIf(book1 -> book1.getId().equals(book.getId()));
-        parser.saveCatalogToFile(mainCatalog);
+        if (book.getId() != null && book.getAuthor() == null && book.getPrice() == null &&
+                book.getGenre() == null && book.getTitle() == null && book.getPublishDate() == null &&
+                book.getDescription() == null) {
+            mainCatalog.getBooks().removeIf(book1 -> book1.getId().equals(book.getId()));
+            parser.saveCatalogToFile(mainCatalog);
+        }
     }
 }

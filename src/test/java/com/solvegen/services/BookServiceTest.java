@@ -13,11 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.xml.bind.JAXBException;
-
-import java.time.LocalDate;
-import java.util.List;
-
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 
 /**
@@ -57,18 +52,17 @@ public class BookServiceTest {
 
     @Test
     public void saveOrUpdateTest() throws JAXBException {
+        int size = service.getBooks().getBooks().size();
         service.saveOrUpdate(book);
         Catalog mainCatalog = service.getBooks();
-        System.out.println(mainCatalog.toString());
+        assertTrue(mainCatalog.getBooks().size() != size);
     }
 
     @Test
     public void deleteBookTest() throws JAXBException {
-        Catalog mainCatalog = service.getBooks();
-        assertEquals(3, mainCatalog.getBooks().size());
+        int size = service.getBooks().getBooks().size();
         service.deleteBook(book);
-        mainCatalog = service.getBooks();
-        assertEquals(2, mainCatalog.getBooks().size());
-
+        Catalog mainCatalog = service.getBooks();
+        assertTrue(size != mainCatalog.getBooks().size());
     }
 }
