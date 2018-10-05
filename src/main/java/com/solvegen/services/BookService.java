@@ -2,23 +2,23 @@ package com.solvegen.services;
 
 import com.solvegen.models.Book;
 import com.solvegen.models.Catalog;
-
-import javax.xml.bind.JAXBContext;
+import com.solvegen.util.CatalogXmlParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import java.io.File;
+import java.util.List;
+
 
 /**
+ * CRUD service class for {@link Catalog} class.
+ *
  * @author Alexander Naumov
  */
 
 
 public class BookService {
 
-    private Catalog catalog;
-
-    private static final File file = new File("main.xml");
+    @Autowired
+    private CatalogXmlParser parser;
 
     /**
      * Returns all books {@link Book} from the main.xml.
@@ -26,43 +26,43 @@ public class BookService {
      * @return {@link Catalog} catalog of books.
      */
 
-    public Catalog getBooks() {
-        return null;
+    public Catalog getBooks() throws JAXBException {
+        return parser.getCatalogFromFile();
     }
 
     /**
-     * Adds or updates book {@link Book} to the catalog.
+     * Adds book {@link Book} if it not exist in main.xml.
+     * Or update it by id, if book not exist in main.xml
      *
-     * @param book to be added to main.xml.
+     * @param book that be added or updated in main.xml.
      */
 
-    public void saveOrUpdate(Book book) {
-
+    public void saveOrUpdate(Book book) throws JAXBException {
+        Catalog mainCatalog = parser.getCatalogFromFile();
+        List<Book> books = mainCatalog.getBooks();
+        int index = 0;
+        for (Book b : books) {
+            if (book.getId().equals(b.getId())) {
+                index = books.indexOf(b);
+            }
+        }
+        if (index == 0) {
+            mainCatalog.getBooks().add(book);
+        } else {
+            mainCatalog.getBooks().set(index, book);
+        }
+        parser.saveCatalogToFile(mainCatalog);
     }
 
     /**
-     * Deletes book {@link Book} from catalog by id.
+     * Remove book {@link Book} from main.xml by id.
      *
-     * @param book to be removed from the main.xml.
+     * @param book that be removed from the main.xml.
      */
 
-    public void deleteBook(Book book) {
-
-    }
-
-
-    private Catalog getCatalogFromFile() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(Catalog.class);
-        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        catalog = (Catalog) unmarshaller.unmarshal(file);
-        return catalog;
-    }
-
-    private void saveCatalogToFile(Catalog catalog) throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(Catalog.class);
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-        marshaller.marshal(catalog, file);
+    public void deleteBook(Book book) throws JAXBException {
+        Catalog mainCatalog = parser.getCatalogFromFile();
+        mainCatalog.getBooks().removeIf(book1 -> book1.getId().equals(book.getId()));
+        parser.saveCatalogToFile(mainCatalog);
     }
 }

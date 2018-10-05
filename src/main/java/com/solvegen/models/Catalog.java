@@ -23,7 +23,6 @@ public class Catalog {
     @XmlElement(name = "book")
     private List<Book> books;
 
-
     /**
      * Returns all books {@link Book} from catalog.
      *
@@ -37,7 +36,7 @@ public class Catalog {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        books.forEach((book) -> builder.append(book.toString()).append("\n\n"));
+        books.forEach((book) -> builder.append(book.toString()));
         return builder.toString();
     }
 }

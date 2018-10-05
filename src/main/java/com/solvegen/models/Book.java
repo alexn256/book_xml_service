@@ -98,6 +98,7 @@ public class Book {
     @Override
     public String toString() {
         return "book = {\nid:" + id +
+                "\nauthor:" + author +
                 "\ntitle:" + title +
                 "\ngenre:" + genre +
                 "\nprice:" + price +

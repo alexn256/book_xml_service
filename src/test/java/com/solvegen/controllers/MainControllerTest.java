@@ -49,7 +49,7 @@ public class MainControllerTest {
     }
 
 
-    private static String xmlRequestExample() {
+    private String xmlRequestBookExample() {
         return  "<?xml version=\"1.0\"?" +
                 "<catalog>" +
                 "<book id=\"bk101\">" +
@@ -58,7 +58,15 @@ public class MainControllerTest {
                 "<genre>" + "Fantasy" + "</genre>" +
                 "<price>" + "5.95" + "</price>" +
                 "<publish_date>" + "2000-11-17" + "</publish_date>" +
-                "<description>" + "description" + "</description>" +
+                "<description>" + "..." + "</description>" +
+                "</book>" +
+                "</catalog>";
+    }
+
+    private String xmlRequestEmptyBookExample() {
+        return  "<?xml version=\"1.0\"?" +
+                "<catalog>" +
+                "<book id=\"bk101\">" +
                 "</book>" +
                 "</catalog>";
     }

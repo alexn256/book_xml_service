@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <catalog>
     <book id="bk101">
         <author>Martin, George</author>
@@ -8,12 +8,5 @@
         <publish_date>2000-11-17</publish_date>
         <description>All heroes  will die...</description>
     </book>
-    <book id="bk102">
-        <author>Harper, Lee</author>
-        <title>Kill the Mockingbird</title>
-        <genre>Southern Gothic</genre>
-        <price>5.25</price>
-        <publish_date>1960-07-11</publish_date>
-        <description>Some description...</description>
-    </book>
+    <book id="bk103"/>
 </catalog>

@@ -1,6 +1,7 @@
 package com.solvegen.config;
 
 import com.solvegen.services.BookService;
+import com.solvegen.util.CatalogXmlParser;
 import com.solvegen.util.LocalDateAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,6 +29,11 @@ public class ApplicationConfiguration {
     @Bean
     public LocalDateAdapter localDateAdapter() {
         return new LocalDateAdapter();
+    }
+
+    @Bean
+    public CatalogXmlParser catalogXmlParser() {
+        return new CatalogXmlParser();
     }
 
 }

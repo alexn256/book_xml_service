@@ -3,6 +3,7 @@ package com.solvegen.services;
 import com.solvegen.config.ApplicationConfiguration;
 import com.solvegen.models.Book;
 import com.solvegen.models.Catalog;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,9 +17,12 @@ import javax.xml.bind.JAXBException;
 import java.time.LocalDate;
 import java.util.List;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 
 /**
+ * Test class for {@link BookService} class.
+ *
  * @author Alexander Naumov
  */
 
@@ -36,40 +40,35 @@ public class BookServiceTest {
     @Before
     public void setup() {
         book = new Book();
-        book.setId("bk101");
-        book.setAuthor("Martin, George");
-        book.setTitle("The game of thrones");
-        book.setGenre("Fantasy");
-        book.setPrice(9.99);
-        book.setPublishDate(LocalDate.of(2000, 11, 17));
-        book.setDescription("All heroes  will die...");
+        book.setId("bk103");
+    }
+
+    @After
+    public void destroy() {
+        book =null;
     }
 
     @Test
     public void getBooksTest() throws JAXBException {
-        Catalog catalog = service.getBooks();
-        assertNotNull(catalog);
-        System.out.println(catalog.toString());
+        Catalog mainCatalog = service.getBooks();
+        assertNotNull(mainCatalog);
+        assertTrue(mainCatalog.getBooks().size() > 0);
     }
 
     @Test
     public void saveOrUpdateTest() throws JAXBException {
-        Book got = new Book();
-        got.setId("bk101");
-
-        service.deleteBook(got);
-
-        Catalog catalog = service.getBooks();
-        System.out.println(catalog.toString());
+        service.saveOrUpdate(book);
+        Catalog mainCatalog = service.getBooks();
+        System.out.println(mainCatalog.toString());
     }
 
     @Test
     public void deleteBookTest() throws JAXBException {
+        Catalog mainCatalog = service.getBooks();
+        assertEquals(3, mainCatalog.getBooks().size());
         service.deleteBook(book);
-        System.out.println(service.getBooks().toString());
-    }
+        mainCatalog = service.getBooks();
+        assertEquals(2, mainCatalog.getBooks().size());
 
-    @Test
-    public void getBookByIdTest() {
     }
 }

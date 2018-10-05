@@ -1,6 +1,6 @@
 package com.solvegen.controllers;
 
-import com.solvegen.models.Book;
+import com.solvegen.models.Catalog;
 import com.solvegen.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +20,9 @@ public class MainController {
     @Autowired
     private BookService service;
 
-
-    @RequestMapping(value = "/books", method = RequestMethod.GET, produces = "application/xml")
-    public @ResponseBody Book changeBook(@RequestBody Book book) {
-
-        return book;
+    @RequestMapping(value = "/books", produces = "application/xml", consumes = "application/xml", method = RequestMethod.POST)
+    public @ResponseBody Catalog changeBook(@RequestBody Catalog catalog) throws Exception {
+       return service.getBooks();
     }
 
 }
