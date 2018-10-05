@@ -1,1 +1,10 @@
-# Created by .ignore support plugin (hsz.mobi)
+#files
+.iml
+.class
+.gitignore
+
+
+#folders
+/.idea
+/.target
+/.out
