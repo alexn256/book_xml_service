@@ -1,10 +1,22 @@
-#files
-book_xml_service.iml
-.class
-.gitignore
+# Compiled class file
+*.class
 
+# Log file
+*.log
 
-#folders
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
 .idea
-out
 target
+classes
+web-app.iml
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+classes/
+
