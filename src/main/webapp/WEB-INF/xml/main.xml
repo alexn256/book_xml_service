@@ -16,12 +16,4 @@
         <publish_date>2000-11-17</publish_date>
         <description>After the collapse of a nanotechnology society in England, the young survivors lay the foundation for a new society.</description>
     </book>
-    <book id="bk107">
-        <author>God</author>
-        <title>Holly Bible</title>
-        <genre>Drama</genre>
-        <price>0.0</price>
-        <publish_date>2000-11-17</publish_date>
-        <description>Everything will be good...</description>
-    </book>
 </catalog>

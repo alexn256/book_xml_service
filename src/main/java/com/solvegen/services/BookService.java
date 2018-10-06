@@ -18,6 +18,7 @@ import java.util.List;
 
 public class BookService {
 
+
     @Autowired
     private CatalogXmlParser parser;
 
@@ -41,13 +42,15 @@ public class BookService {
     public void saveOrUpdate(Book book) throws JAXBException {
         Catalog mainCatalog = parser.getCatalogFromFile();
         List<Book> books = mainCatalog.getBooks();
+        boolean exist = false;
         int index = 0;
         for (Book b : books) {
             if (book.getId().equals(b.getId())) {
                 index = books.indexOf(b);
+                exist = true;
             }
         }
-        if (index == 0) {
+        if (!exist) {
             mainCatalog.getBooks().add(book);
         } else {
             mainCatalog.getBooks().set(index, book);
@@ -63,11 +66,7 @@ public class BookService {
 
     public void deleteBook(Book book) throws JAXBException {
         Catalog mainCatalog = parser.getCatalogFromFile();
-        if (book.getId() != null && book.getAuthor() == null && book.getPrice() == null &&
-                book.getGenre() == null && book.getTitle() == null && book.getPublishDate() == null &&
-                book.getDescription() == null) {
-            mainCatalog.getBooks().removeIf(book1 -> book1.getId().equals(book.getId()));
-            parser.saveCatalogToFile(mainCatalog);
-        }
+        mainCatalog.getBooks().removeIf(book1 -> book1.getId().equals(book.getId()));
+        parser.saveCatalogToFile(mainCatalog);
     }
 }

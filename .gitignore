@@ -1,10 +1,10 @@
 #files
-.iml
+book_xml_service.iml
 .class
 .gitignore
 
 
 #folders
-/.idea
-/.target
-/.out
+.idea
+out
+target
