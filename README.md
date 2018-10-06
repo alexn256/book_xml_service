@@ -15,10 +15,9 @@ service takes requests as :
         <description>A former architect battles corporate zombies ... </description>
     </book>
   </catalog>
-<<<<<<< HEAD
+  
 ```
 
-```
 - If service takes XML request like:  
 
 ```
