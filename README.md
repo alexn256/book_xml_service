@@ -23,7 +23,7 @@ service takes requests as :
 ```
 <?xml version="1.0"?>
 <catalog>
-    <book id="bk101"/
+    <book id="bk101"/>
 </catalog>
 
 ```
