@@ -1,2 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<catalog/>
+<catalog>
+    <book id="bk103">
+        <author>Ralls, Kim</author>
+        <title>Midnight Rain</title>
+        <genre>Fantasy</genre>
+        <price>5.95</price>
+        <publish_date>2000-12-16</publish_date>
+        <description>A former architect battles corporate zombies, anevil sorceress, and her own childhood to become queen of the world.</description>
+    </book>
+    <book id="bk104">
+        <author>Gambardella Matthew</author>
+        <title>XML Developer's Guide</title>
+        <genre>Computer</genre>
+        <price>44.95</price>
+        <publish_date>2000-10-01</publish_date>
+        <description>An in-depth look at creating applications with XML.</description>
+    </book>
+    <book id="bk105">
+        <author>Corets, Eva</author>
+        <title>Maeve Ascendant</title>
+        <genre>Fantasy</genre>
+        <price>5.95</price>
+        <publish_date>2000-11-17</publish_date>
+        <description>After thr collapse  of nanotechnology society in England, the youngsurvivors lay the foundation for a new  society.</description>
+    </book>
+    <book id="bk101">
+        <author>J. K. Rowling</author>
+        <title>Harry Potter</title>
+        <genre>Fantasy</genre>
+        <price>11.99</price>
+        <publish_date>1977-06-26</publish_date>
+        <description>...</description>
+    </book>
+    <book id="bk117">
+        <author>God</author>
+        <title>Holly Bible</title>
+        <genre>Drama</genre>
+        <price>0.0</price>
+        <publish_date>2000-01-01</publish_date>
+        <description>...</description>
+    </book>
+</catalog>

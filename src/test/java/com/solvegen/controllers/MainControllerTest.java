@@ -49,7 +49,7 @@ public class MainControllerTest {
         Catalog catalog = new Catalog();
 
         Book book1 = new Book();
-        book1.setId("bk101");
+        book1.setId("bk103");
         book1.setAuthor("Ralls, Kim");
         book1.setTitle("Midnight Rain");
         book1.setGenre("Fantasy");
@@ -59,7 +59,7 @@ public class MainControllerTest {
                 "evil sorceress, and her own childhood to become queen of the world.");
 
         Book book2 = new Book();
-        book2.setId("bk102");
+        book2.setId("bk104");
         book2.setAuthor("Gambardella Matthew");
         book2.setTitle("XML Developer's Guide");
         book2.setGenre("Computer");
@@ -68,7 +68,7 @@ public class MainControllerTest {
         book2.setDescription("An in-depth look at creating applications with XML.");
 
         Book book3 = new Book();
-        book3.setId("bk103");
+        book3.setId("bk105");
         book3.setAuthor("Corets, Eva");
         book3.setTitle("Maeve Ascendant");
         book3.setGenre("Fantasy");
@@ -118,7 +118,7 @@ public class MainControllerTest {
                 .contentType(MediaType.APPLICATION_XML_VALUE)
                 .content(xmlContent);
 
-        mockMvc.perform(request).andDo(print()).andExpect(status().isOk());
+        mockMvc.perform(request).andExpect(status().isOk());
     }
 
     @Test
@@ -140,7 +140,7 @@ public class MainControllerTest {
                 .contentType(MediaType.APPLICATION_XML_VALUE)
                 .content(xmlContent);
 
-        mockMvc.perform(request).andDo(print()).andExpect(status().isOk());
+        mockMvc.perform(request).andExpect(status().isOk());
     }
 
     @Test
@@ -157,7 +157,7 @@ public class MainControllerTest {
                 .contentType(MediaType.APPLICATION_XML_VALUE)
                 .content(xmlContent);
 
-        mockMvc.perform(xmlRequest).andExpect(status().isOk()).andReturn();
+        mockMvc.perform(xmlRequest).andExpect(status().isOk());
     }
 
     private String objectToXml(Catalog catalog) throws JAXBException {

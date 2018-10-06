@@ -5,6 +5,7 @@ import com.solvegen.util.LocalDateAdapter;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Simple POJO class that represents book.
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 
 @XmlRootElement(name = "book")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Book {
+public class Book implements Comparable<Book>{
 
     @XmlAttribute(name = "id")
     private String id;
@@ -93,6 +94,39 @@ public class Book {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(title, book.title) &&
+                Objects.equals(genre, book.genre) &&
+                Objects.equals(price, book.price) &&
+                Objects.equals(publishDate, book.publishDate) &&
+                Objects.equals(description, book.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, author, title, genre, price, publishDate, description);
+    }
+
+    @Override
+    public int compareTo(Book o) {
+        int result = id.compareTo(o.getId());
+        if (result < 0) {
+            return -1;
+        } else {
+            if (result > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
     }
 
     @Override

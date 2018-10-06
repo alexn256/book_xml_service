@@ -10,11 +10,13 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
+
 /**
  * Helper class, for read/write main.xml file.
  *
  * @author Alexander Naumov
  */
+
 
 public class CatalogXmlParser {
 
@@ -50,5 +52,4 @@ public class CatalogXmlParser {
         catalogMarshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
         catalogMarshaller.marshal(catalog, new File(applicationContext.getServletContext().getRealPath(PATH)));
     }
-
 }
