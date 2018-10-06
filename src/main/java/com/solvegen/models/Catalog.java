@@ -2,6 +2,7 @@ package com.solvegen.models;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class Catalog {
 
     @XmlElement(name = "book")
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 
     /**
      * Returns all books {@link Book} from catalog.
