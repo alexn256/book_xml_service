@@ -3,9 +3,9 @@ package com.solvegen.services;
 import com.solvegen.models.Book;
 import com.solvegen.models.Catalog;
 import com.solvegen.util.CatalogXmlParser;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.xml.bind.JAXBException;
 import java.util.List;
 
 
@@ -18,6 +18,8 @@ import java.util.List;
 
 public class BookService {
 
+    private static Logger log = Logger.getLogger(BookService.class);
+
 
     @Autowired
     private CatalogXmlParser parser;
@@ -28,7 +30,7 @@ public class BookService {
      * @return {@link Catalog} catalog of books.
      */
 
-    public Catalog getBooks() throws JAXBException {
+    public Catalog getBooks() {
         return parser.getCatalogFromFile();
     }
 
@@ -39,7 +41,7 @@ public class BookService {
      * @param book that be added or updated in main.xml.
      */
 
-    public void saveOrUpdate(Book book) throws JAXBException {
+    public void saveOrUpdate(Book book) {
         Catalog mainCatalog = parser.getCatalogFromFile();
         List<Book> books = mainCatalog.getBooks();
         boolean exist = false;
@@ -48,12 +50,15 @@ public class BookService {
             if (book.getId().equals(b.getId())) {
                 index = books.indexOf(b);
                 exist = true;
+                log.info("catalog from main.xml file contains book \n\n" + b + "\n\n with same id like \n\n" + book + "\n\n");
             }
         }
         if (!exist) {
             mainCatalog.getBooks().add(book);
+            log.info("save book with id = " + book.getId() + " in main.xml file.");
         } else {
             mainCatalog.getBooks().set(index, book);
+            log.info("update book with id = " + book.getId() + " in main.xml file.");
         }
         parser.saveCatalogToFile(mainCatalog);
     }
@@ -64,9 +69,9 @@ public class BookService {
      * @param book that be removed from the main.xml.
      */
 
-    public void deleteBook(Book book) throws JAXBException {
+    public void deleteBook(Book book) {
         Catalog mainCatalog = parser.getCatalogFromFile();
-        mainCatalog.getBooks().removeIf(book1 -> book1.getId().equals(book.getId()));
+        mainCatalog.getBooks().removeIf( b -> b.getId().equals(book.getId()));
         parser.saveCatalogToFile(mainCatalog);
     }
 }

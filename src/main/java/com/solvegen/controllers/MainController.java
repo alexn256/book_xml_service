@@ -3,11 +3,11 @@ package com.solvegen.controllers;
 import com.solvegen.models.Book;
 import com.solvegen.models.Catalog;
 import com.solvegen.services.BookService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.bind.JAXBException;
 
 /**
  * Main controller class.
@@ -18,6 +18,8 @@ import javax.xml.bind.JAXBException;
 
 @Controller
 public class MainController {
+
+    private static Logger log = Logger.getLogger(MainController.class);
 
     @Autowired
     private BookService service;
@@ -32,32 +34,24 @@ public class MainController {
      * @param catalog XML Request that, from client that represents catalog {@link Catalog}
      *                with single book {@link Book}.
      * @return XML response that represents catalog of books from main.xml file.
-     * @throws JAXBException
      */
 
     @RequestMapping(value = "/books", produces = "application/xml", consumes = "application/xml", method = RequestMethod.POST)
     public @ResponseBody
-    Catalog changeBook(@RequestBody(required = false) Catalog catalog) throws JAXBException {
-
+    Catalog changeBook(@RequestBody(required = false) Catalog catalog) {
         if (catalog == null) {
+            log.info("an empty request came to the server");
             return service.getBooks();
         }
-
         catalog.getBooks().forEach(book -> {
-            try {
-                if (book.getId() != null && book.getAuthor() == null && book.getPrice() == null &&
-                        book.getGenre() == null && book.getTitle() == null && book.getPublishDate() == null &&
-                        book.getDescription() == null) {
-                    service.deleteBook(book);
-                } else {
-                    service.saveOrUpdate(book);
-                }
-            } catch (JAXBException e) {
-                e.printStackTrace();
+            if (book.isEmpty()) {
+                log.info("a request come to the server for deleting a book.");
+                service.deleteBook(book);
+            } else {
+                log.info("a request come to the server for saving or updating a book.");
+                service.saveOrUpdate(book);
             }
         });
-
         return service.getBooks();
     }
-
 }

@@ -96,6 +96,16 @@ public class Book implements Comparable<Book>{
         return description;
     }
 
+    public boolean isEmpty() {
+        return this.id != null &&
+                this.author == null &&
+                this.price == null &&
+                this.genre == null &&
+                this.title == null &&
+                this.publishDate == null &&
+                this.description == null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
